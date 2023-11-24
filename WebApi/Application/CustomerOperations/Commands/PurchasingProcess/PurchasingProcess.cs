@@ -1,9 +1,8 @@
 using AutoMapper;
-using WebApi.Application.CustomerOperations.Queries.GetCustomers;
 using WebApi.DBOperations;
 using WebApi.Entities;
 
-namespace WebApi.Application.PurchaseOperation.Commands
+namespace WebApi.Application.CustomerOperations.Commands.PurchasingProcess
 {
     public class PurchasingProcess
     {
@@ -19,7 +18,7 @@ namespace WebApi.Application.PurchaseOperation.Commands
 
         public void Handle()
         {           
-            var customerMovie = _mapper.Map<CustomerMovie>(Model);
+            var customerMovie = _mapper.Map<CustomerMovie>(Model);          
             _dbContext.CustomersMovies.Add(customerMovie);
             _dbContext.SaveChanges();                           
         }

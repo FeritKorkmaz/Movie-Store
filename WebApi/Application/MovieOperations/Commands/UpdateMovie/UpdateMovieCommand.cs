@@ -8,10 +8,12 @@ namespace WebApi.Application.MovieOperations.Commands.UpdateMovie
         public UpdateMovieModel Model { get; set; }
         public int MovieId { get; set; }
         private readonly IMovieStoreDbContext _dbcontext;
-       
-        public UpdateMovieCommand(IMovieStoreDbContext dbContext)
+        private readonly IMapper _mapper;
+
+        public UpdateMovieCommand(IMovieStoreDbContext dbContext, IMapper mapper)
         {
-            _dbcontext = dbContext;            
+            _dbcontext = dbContext;
+            _mapper = mapper;
         }
         public void Handle()
         {
@@ -20,10 +22,7 @@ namespace WebApi.Application.MovieOperations.Commands.UpdateMovie
             {
                 throw new InvalidOperationException("Film bulunamadi");
             }
-            movie.Title = Model.Title != default ? Model.Title : movie.Title;
-            movie.GenreId = Model.GenreId != default ? Model.GenreId : movie.GenreId;
-            movie.DirectorId = Model.DirectorId != default ? Model.DirectorId : movie.DirectorId;
-            movie.Price = Model.Price != default ? Model.Price : movie.Price;
+            _mapper.Map(Model, movie);
             _dbcontext.SaveChanges();
             
         }
@@ -34,6 +33,6 @@ namespace WebApi.Application.MovieOperations.Commands.UpdateMovie
         public string? Title { get; set; }
         public int GenreId { get; set; }
         public int DirectorId { get; set; }
-        public string? Price { get; set; }
+        public double? Price { get; set; }
     }
 }

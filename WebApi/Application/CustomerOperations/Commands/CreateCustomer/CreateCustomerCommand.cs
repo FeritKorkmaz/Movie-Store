@@ -21,7 +21,7 @@ namespace WebApi.Application.CustomerOperations.Commands.CreateCustomer
             var customer = _dbContext.Customers.SingleOrDefault(x =>x.Name == Model.Name && x.Surname == Model.Surname);
             if(customer is not null)
             {
-                throw new InvalidOperationException("Yonetmen zaten mevcut");
+                throw new InvalidOperationException("Musteri zaten mevcut");
             }
             customer = _mapper.Map<Customer>(Model);
             _dbContext.Customers.Add(customer);

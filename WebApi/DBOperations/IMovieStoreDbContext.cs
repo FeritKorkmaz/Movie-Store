@@ -7,7 +7,7 @@ namespace WebApi.DBOperations
    {
        DbSet<Movie> Movies { get; set; }
        DbSet<Director> Directors { get; set; }
-       DbSet<Customer> Customers { get; set; }  
+       DbSet<Customer> Customers { get; set; }
        DbSet<Genre> Genres { get; set; }
        DbSet<Actor> Actors { get; set; }
        DbSet<ActorMovie> ActorsMovies { get; set; }

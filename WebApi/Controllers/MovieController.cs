@@ -37,8 +37,8 @@ namespace WebApi.Controllers
             CreateMovieCommand command = new CreateMovieCommand(_context, _mapper);           
             command.Model = newMovie;
 
-            // CreateBookCommandValidator validator = new CreateBookCommandValidator();
-            // validator.ValidateAndThrow(command);
+            CreateMovieCommandValidator validator = new CreateMovieCommandValidator();
+            validator.ValidateAndThrow(command);
 
             command.Handle();                        
             return Ok();
@@ -50,12 +50,12 @@ namespace WebApi.Controllers
         public IActionResult UpdateMovie(int id, [FromBody] UpdateMovieModel updateMovie)
         {       
         
-            UpdateMovieCommand command = new UpdateMovieCommand(_context);   
+            UpdateMovieCommand command = new UpdateMovieCommand(_context, _mapper);   
             command.MovieId = id;
             command.Model = updateMovie;
 
-            // UpdateBooksQueryValidator validator = new UpdateBooksQueryValidator();
-            // validator.ValidateAndThrow(command);
+            UpdateMovieCommandValidator validator = new UpdateMovieCommandValidator();
+            validator.ValidateAndThrow(command);
             command.Handle();
     
             return Ok();
@@ -67,8 +67,8 @@ namespace WebApi.Controllers
             DeleteMovieCommand command = new DeleteMovieCommand(_context);
             command.MovieId = id;
             
-            // DeleteBookCommandValidator validator = new DeleteBookCommandValidator();
-            // validator.ValidateAndThrow(command);
+            DeleteMovieCommandValidator validator = new DeleteMovieCommandValidator();
+            validator.ValidateAndThrow(command);
 
             command.Handle();
 

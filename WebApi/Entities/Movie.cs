@@ -9,7 +9,7 @@ namespace WebApi.Entities
         public int Id { get; set; }
         public string? Title { get; set; }
         public DateTime Year { get; set; }
-        public string? Price { get; set; }
+        public double? Price { get; set; }
 
         public int GenreId { get; set; }
         public Genre? Genre { get; set; }

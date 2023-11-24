@@ -37,8 +37,8 @@ namespace WebApi.Controllers
             CreateDirectorCommand command = new CreateDirectorCommand(_context, _mapper);           
             command.Model = newDirector;
 
-            // CreateBookCommandValidator validator = new CreateBookCommandValidator();
-            // validator.ValidateAndThrow(command);
+            CreateDirectorCommandValidator validator = new CreateDirectorCommandValidator();
+            validator.ValidateAndThrow(command);
 
             command.Handle();                        
             return Ok();
@@ -47,28 +47,28 @@ namespace WebApi.Controllers
 
         //Put
         [HttpPut("{id}")]
-        public IActionResult UpdateMovie(int id, [FromBody] UpdateDirectorModel updateDirector)
+        public IActionResult UpdateDirector(int id, [FromBody] UpdateDirectorModel updateDirector)
         {       
         
-            UpdateDirectorCommand command = new UpdateDirectorCommand(_context);   
+            UpdateDirectorCommand command = new UpdateDirectorCommand(_context, _mapper);   
             command.DirectorId = id;
             command.Model = updateDirector;
 
-            // UpdateBooksQueryValidator validator = new UpdateBooksQueryValidator();
-            // validator.ValidateAndThrow(command);
+            UpdateDirectorCommandValidator validator = new UpdateDirectorCommandValidator();
+            validator.ValidateAndThrow(command);
             command.Handle();
     
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteMovie(int id)
+        public IActionResult DeleteDirector(int id)
         {
             DeleteDirectorCommand command = new DeleteDirectorCommand(_context);
             command.DirectorId = id;
             
-            // DeleteBookCommandValidator validator = new DeleteBookCommandValidator();
-            // validator.ValidateAndThrow(command);
+            DeleteDirectorCommandValidator validator = new DeleteDirectorCommandValidator();
+            validator.ValidateAndThrow(command);
 
             command.Handle();
 

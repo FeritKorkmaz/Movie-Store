@@ -1,3 +1,4 @@
+using AutoMapper;
 using WebApi.DBOperations;
 using WebApi.Entities;
 namespace WebApi.Application.ActorOperations.Commands.UpdateActor
@@ -7,10 +8,13 @@ namespace WebApi.Application.ActorOperations.Commands.UpdateActor
         public UpdateActorrModel Model { get; set; }
         public int ActorId { get; set; }
         private readonly IMovieStoreDbContext _dbcontext;
-       
-        public UpdateActorCommand(IMovieStoreDbContext dbContext)
+        private readonly IMapper _mapper;
+
+
+        public UpdateActorCommand(IMovieStoreDbContext dbContext, IMapper mapper)
         {
-            _dbcontext = dbContext;            
+            _dbcontext = dbContext;
+            _mapper = mapper;
         }
         public void Handle()
         {
@@ -19,10 +23,8 @@ namespace WebApi.Application.ActorOperations.Commands.UpdateActor
             {
                 throw new InvalidOperationException("Oyuncu bulunamadi");
             }
-            actor.Name = Model.Name != default ? Model.Name : actor.Name;
-            actor.Surname = Model.Surname != default ? Model.Surname : actor.Surname;
             
-          
+            _mapper.Map(Model, actor);
             _dbcontext.SaveChanges();
             
         }

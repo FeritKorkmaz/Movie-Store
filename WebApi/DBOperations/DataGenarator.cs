@@ -20,6 +20,26 @@ namespace WebApi.DBOperations
                 if (context.Directors.Any())
                 {
                     return; // Data was already seeded
+                }
+                if (context.Genres.Any())
+                {
+                    return; // Data was already seeded
+                }
+                if (context.Actors.Any())
+                {
+                    return; // Data was already seeded
+                }
+                if (context.Customers.Any())
+                {
+                    return; // Data was already seeded
+                }
+                if (context.ActorsMovies.Any())
+                {
+                    return; // Data was already seeded
+                }
+                if (context.CustomersMovies.Any())
+                {
+                    return; // Data was already seeded
                 }               
                   
                 context.Movies.AddRange(
@@ -28,7 +48,7 @@ namespace WebApi.DBOperations
                         GenreId = 1,
                         DirectorId = 1,                        
                         Year = new DateTime(2000, 01, 01),
-                        Price = "9.99"
+                        Price = 9.99
                     },
                     new Movie{
                         
@@ -36,14 +56,14 @@ namespace WebApi.DBOperations
                         GenreId = 1,
                         DirectorId = 2,                       
                         Year = new DateTime(2000, 01, 01),                        
-                        Price = "9.99"
+                        Price = 9.99
                     },
                     new Movie{                        
                         Title = "The Matrix",
                         GenreId = 1,
                         DirectorId = 1,                       
                         Year = new DateTime(2000, 01, 01),                                              
-                        Price = "9.99"
+                        Price = 9.99
                     }                
                 );
 
