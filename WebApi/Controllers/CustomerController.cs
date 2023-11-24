@@ -3,8 +3,9 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Application.CustomerOperations.Commands.CreateCustomer;
 using WebApi.Application.CustomerOperations.Commands.DeleteCustomer;
-using WebApi.Application.CustomerOperations.Queries.GetCustomers;
-using WebApi.Application.PurchaseOperation.Commands;
+using WebApi.Application.CustomerOperations.Commands.PurchasingProcess;
+using WebApi.Application.CustomerOperations.Commands.RemovePursahedMovie;
+using WebApi.Application.CustomerOperations.Queries;
 using WebApi.DBOperations;
 
 namespace WebApi.Controllers
@@ -24,7 +25,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetActors()
+        public IActionResult GetCustomers()
         {
             GetCustomersQuery query = new GetCustomersQuery(_context, _mapper);
             var result = query.Handle();
@@ -38,8 +39,8 @@ namespace WebApi.Controllers
             CreateCustomerCommand command = new CreateCustomerCommand(_context, _mapper);           
             command.Model = newCustomer;
 
-            // CreateBookCommandValidator validator = new CreateBookCommandValidator();
-            // validator.ValidateAndThrow(command);
+            CreateCustomerCommandValidator validator = new CreateCustomerCommandValidator();
+            validator.ValidateAndThrow(command);
 
             command.Handle();                        
             return Ok();
@@ -51,23 +52,36 @@ namespace WebApi.Controllers
             DeleteCustomerCommand command = new DeleteCustomerCommand(_context);
             command.CustomerId = id;
             
-            // DeleteBookCommandValidator validator = new DeleteBookCommandValidator();
-            // validator.ValidateAndThrow(command);
+            DeleteCustomerCommandValidator validator = new DeleteCustomerCommandValidator();
+            validator.ValidateAndThrow(command);
 
             command.Handle();
-
             return Ok();            
-        }      
-        
+        }
+        [HttpDelete("RemovePurchasedMovie")]
+        public IActionResult RemovePursahedMovie(int customerId, int movieId)
+        {
+            RemovePursahedMovie command = new RemovePursahedMovie(_context);
+            
+            command.CustomerId = customerId;
+            command.MovieId = movieId;            
+           
+            RemovePursahedMovieValidator validator = new RemovePursahedMovieValidator();
+            validator.ValidateAndThrow(command);
+
+            command.Handle();
+            return Ok();
+        }
+
         
         [HttpPost("Purchase")]
-        public IActionResult AddCustomer([FromBody] PurchasingProcessModel newPurchasingProcess)
+        public IActionResult Purchase([FromBody] PurchasingProcessModel newPurchasingProcess)
         {
             PurchasingProcess command = new PurchasingProcess(_context, _mapper);           
             command.Model = newPurchasingProcess;
 
-            // CreateBookCommandValidator validator = new CreateBookCommandValidator();
-            // validator.ValidateAndThrow(command);
+            PurchasingProcessValidator validator = new PurchasingProcessValidator();
+            validator.ValidateAndThrow(command);
 
             command.Handle();                        
             return Ok();

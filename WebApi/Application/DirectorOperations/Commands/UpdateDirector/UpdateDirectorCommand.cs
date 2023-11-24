@@ -8,10 +8,12 @@ namespace WebApi.Application.DirectorOperations.Commands.UpdateDirector
         public UpdateDirectorModel Model { get; set; }
         public int DirectorId { get; set; }
         private readonly IMovieStoreDbContext _dbcontext;
-       
-        public UpdateDirectorCommand(IMovieStoreDbContext dbContext)
+        private readonly IMapper _mapper;
+
+        public UpdateDirectorCommand(IMovieStoreDbContext dbContext, IMapper mapper)
         {
-            _dbcontext = dbContext;            
+            _dbcontext = dbContext;
+            _mapper = mapper;
         }
         public void Handle()
         {
@@ -20,10 +22,8 @@ namespace WebApi.Application.DirectorOperations.Commands.UpdateDirector
             {
                 throw new InvalidOperationException("Film bulunamadi");
             }
-            director.Name = Model.Name != default ? Model.Name : director.Name;
-            director.Surname = Model.Surname != default ? Model.Surname : director.Surname;
             
-          
+            _mapper.Map(Model, director);           
             _dbcontext.SaveChanges();
             
         }

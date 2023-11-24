@@ -35,9 +35,9 @@ namespace WebApi.Controllers
         {
             CreateActorCommand command = new CreateActorCommand(_context, _mapper);           
             command.Model = newActor;
-
-            // CreateBookCommandValidator validator = new CreateBookCommandValidator();
-            // validator.ValidateAndThrow(command);
+            
+            CreateActorCommandValidator validator = new CreateActorCommandValidator();
+            validator.ValidateAndThrow(command);
 
             command.Handle();                        
             return Ok();
@@ -49,8 +49,8 @@ namespace WebApi.Controllers
             DeleteActorCommand command = new DeleteActorCommand(_context);
             command.ActorId = id;
             
-            // DeleteBookCommandValidator validator = new DeleteBookCommandValidator();
-            // validator.ValidateAndThrow(command);
+            DeleteActorCommandValidator validator = new DeleteActorCommandValidator();
+            validator.ValidateAndThrow(command);
 
             command.Handle();
 
@@ -58,17 +58,17 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateMovie(int id, [FromBody] UpdateActorrModel updateActor)
+        public IActionResult UpdateActor(int id, [FromBody] UpdateActorrModel updateActor)
         {       
         
-            UpdateActorCommand command = new UpdateActorCommand(_context);   
+            UpdateActorCommand command = new UpdateActorCommand(_context, _mapper);   
             command.ActorId = id;
             command.Model = updateActor;
 
-            // UpdateBooksQueryValidator validator = new UpdateBooksQueryValidator();
-            // validator.ValidateAndThrow(command);
+            UpdateActorCommandValidator validator = new UpdateActorCommandValidator();
+            validator.ValidateAndThrow(command);
+
             command.Handle();
-    
             return Ok();
         }  
     }
