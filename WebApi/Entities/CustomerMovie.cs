@@ -1,4 +1,3 @@
-using System.Collections;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApi.Entities
@@ -12,7 +11,6 @@ namespace WebApi.Entities
         
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
         public int CustomerId { get; set; }
         public int MovieId { get; set; }
 

@@ -17,9 +17,13 @@ namespace WebApi.Application.DirectorOperations.Commands.DeleteDirector
             {
                 throw new InvalidOperationException("Yonetmen bulunamadi");
             }
+            
+            if (_dbContext.Movies.Any(x => x.DirectorId == DirectorId))
+            {
+                throw new InvalidOperationException("Bu yonetmenin yonettigi bir film var. Lütfen önce filmi siliniz.");
+            }
             _dbContext.Directors.Remove(director);
             _dbContext.SaveChanges();
         }
-
     }
 }

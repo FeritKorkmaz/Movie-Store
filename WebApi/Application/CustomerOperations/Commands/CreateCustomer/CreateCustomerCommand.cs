@@ -18,7 +18,7 @@ namespace WebApi.Application.CustomerOperations.Commands.CreateCustomer
 
         public void Handle()
         {
-            var customer = _dbContext.Customers.SingleOrDefault(x =>x.Name == Model.Name && x.Surname == Model.Surname);
+            var customer = _dbContext.Customers.SingleOrDefault(x =>x.Email == Model.Email);
             if(customer is not null)
             {
                 throw new InvalidOperationException("Musteri zaten mevcut");
@@ -33,5 +33,7 @@ namespace WebApi.Application.CustomerOperations.Commands.CreateCustomer
     {      
         public string? Name { get; set; }
         public string? Surname { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
     }
 }
