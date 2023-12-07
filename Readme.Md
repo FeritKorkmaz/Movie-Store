@@ -99,3 +99,5 @@ This project aims to develop a WebApi application that encompasses fundamental s
 2. Open the project in an IDE (Visual Studio, VS Code, etc.).
 3. Install required packages: `dotnet restore`.
 4. Start the application: `dotnet run`.
+
+**Note:** To run the project, you need to have at least [.NET 6.0.100] version of the .NET Core SDK installed on your computer. If it's not installed, you can download the latest version of .NET 6.0 SDK from the [official .NET website](https://dotnet.microsoft.com/download/dotnet/6.0).
